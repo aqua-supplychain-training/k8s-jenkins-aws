@@ -7,10 +7,10 @@ jobs:
     name: depecheck_test
     steps:
       - name: Login to DockerHub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v3
         with:
-          username: arunrana1214
-          password: Everest30 
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }} 
       - name: Gitleals scan
         run:  export VER="1.24.0" &&  wget https://github.com/zricethezav/gitleaks/releases/download/v$VER/gitleaks-linux-amd64 && mv gitleaks-linux-amd64 gitleaks && chmod +x gitleaks && sudo mv gitleaks /usr/local/bin/ && gitleaks --repo=https://github.com/mani7444/k8s-jenkins-aws.git
       - name: Checkout
