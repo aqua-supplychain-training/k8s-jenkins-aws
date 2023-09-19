@@ -20,7 +20,8 @@ jobs:
       - name: semgrep scan
         run: python3 -m pip install semgrep && semgrep --config=auto $(pwd)
       - name: docker build
-        run: docker build -t jhooq-docker-demo . && docker tag jhooq-docker-demo mani7444/jhooq-docker-demo:jhooq-docker-demo
+        run: docker build -t jhooq-docker-demo:v1 .
+       # run: docker build -t jhooq-docker-demo . && docker tag jhooq-docker-demo mani7444/jhooq-docker-demo:jhooq-docker-demo
 
       - name: Run Aqua scanner
         uses: docker://aquasec/aqua-scanner
@@ -55,7 +56,7 @@ jobs:
             --access-token "${{ secrets.GITHUB_TOKEN }}" \
             --aqua-key "${{ secrets.AQUA_KEY }}" \
             --aqua-secret "${{ secrets.AQUA_SECRET }}" \
-            --artifact-path "my-image-name:${{ env.tag-version }}" 
+            --artifact-path "jhooq-docker-demo:v1" 
 
             # The docker image name:tag of the newly built image
             # --artifact-path "my-image-name:${{ env.tag-version }}" 
